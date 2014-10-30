@@ -1,0 +1,12 @@
+{  
+   "entity":{  
+      "name":"worker",
+	  "entity_type":"Type_Worker",
+      "tags":[  
+         "drawable",
+		 "solid",
+		 "unit"
+      ],
+      "sprite":"worker"
+   }
+}

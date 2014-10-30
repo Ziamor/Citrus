@@ -1,0 +1,12 @@
+{
+  "name": "worker",
+  "entity_type": {
+    "name": "Type_Worker"
+  },
+  "tags": [
+    "drawable",
+    "solid",
+    "unit"
+  ],
+  "texture": "worker"
+}

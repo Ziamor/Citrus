@@ -1,0 +1,12 @@
+{
+  "name": "wall",
+  "entity_type": {
+    "name": "Type_Static"
+  },
+  "tags": [
+    "drawable",
+    "solid",
+	"environment"
+  ],
+  "texture": "wall"
+}
