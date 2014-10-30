@@ -24,7 +24,7 @@ namespace Engine
         public Sprite(String name, String path)
         {
             this.name = name;
-            this.path = path;            
+            this.path = path;
         }
         public String Path
         {
@@ -39,6 +39,17 @@ namespace Engine
                     return ContentLoader.get_texture(@path);
                 else
                     return null;
+            }
+        }
+
+        public Sprite Clone
+        {
+            get
+            {
+                Sprite copy = new Sprite();
+                copy.name = this.name;
+                copy.path = this.path;
+                return copy;
             }
         }
     }

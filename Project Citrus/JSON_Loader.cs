@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Project_Citrus
 {
-    enum Type
+    enum Resource_Type
     {
         Entity,
         Image
@@ -24,28 +24,36 @@ namespace Project_Citrus
         public static Entity Get_Entity(String name)
         {
             Entity entity = null;
-            if (entity_cache.ContainsKey(name))
-            {
-                entity_cache.TryGetValue(name, out entity);
-            }
-            else
-            {
-                entity = Read<Entity>(name, Type.Entity);
-                if (entity != null)
-                    entity_cache.Add(name, entity);
-            }
-
-            return entity.Clone;
+            entity = Get<Entity>(name, Resource_Type.Entity, entity_cache);
+            if (entity != null)
+                return entity.Clone;
+            else return null;
         }
 
         public static Sprite Get_Sprite(String name)
         {
             Sprite sprite = null;
-            sprite = Read<Sprite>(name, Type.Image);
-            return sprite;
+            sprite = Get<Sprite>(name, Resource_Type.Image, sprite_cache);
+            if (sprite != null)
+                return sprite.Clone;
+            else return null;
         }
 
-        private static T Read<T>(String name, Type type)
+        private static T Get<T>(String name, Resource_Type type, Dictionary<String, T> cache)
+        {
+            T obj = default(T);
+            if (cache.ContainsKey(name))
+                cache.TryGetValue(name, out obj);
+            else
+            {
+                obj = Read<T>(name, type);
+                if (obj != null)
+                    cache.Add(name, obj);
+            }
+            return obj;
+        }
+
+        private static T Read<T>(String name, Resource_Type type)
         {
             T deserialized_object = default(T);
             String json_output = Get_JSON(name, type);
@@ -55,10 +63,11 @@ namespace Project_Citrus
 
         public static void Write_Entity(Entity entity)
         {
-            Write<Entity>(entity, entity.Name, Type.Entity);
+            Write<Entity>(entity, entity.Name, Resource_Type.Entity);
         }
-        private static void Write<T>(T obj, String name, Type type)
+        private static void Write<T>(T obj, String name, Resource_Type type)
         {
+            //JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Objects };
             string output = JsonConvert.SerializeObject(obj, Formatting.Indented);
             try
             {
@@ -74,13 +83,13 @@ namespace Project_Citrus
             }
         }
 
-        private static String Get_Dir(Type type)
+        private static String Get_Dir(Resource_Type type)
         {
 
             return working_dir + type_dir[(int)type] + @"\";
         }
 
-        private static String Get_JSON(String name, Type type)
+        private static String Get_JSON(String name, Resource_Type type)
         {
             String json_output = "";
             try

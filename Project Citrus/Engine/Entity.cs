@@ -8,6 +8,10 @@ using System.IO;
 using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Linq;
 using Project_Citrus;
+using Project_Citrus.Engine;
+using Project_Citrus.Engine.Components;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace Engine
 {
@@ -25,21 +29,29 @@ namespace Engine
         private String[] tags; // A tag is used to find objects quickly        
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         private String texture = null;
+        [JsonProperty(Required = Required.Always, ItemTypeNameHandling = TypeNameHandling.Objects)]
+        private Dictionary<String, Component> components = new Dictionary<String, Component>();
+
         private Sprite sprite = null;
 
         public Entity()
         {
         }
 
-        public Entity(String name, Entity_Type entity_type, String[] tags)
+        public Entity(String name, Entity_Type entity_type, String[] tags, params Component[] components)
         {
             this.name = name;
             this.entity_type = entity_type;
             this.tags = tags;
+            foreach (Component comp in components)
+            {
+                if (!this.components.ContainsKey(comp.Name))
+                    this.components.Add(comp.Name, comp);
+            }
         }
 
-        public Entity(String name, Entity_Type entity_type, String texture, String[] tags)
-            : this(name, entity_type, tags)
+        public Entity(String name, Entity_Type entity_type, String texture, String[] tags, params Component[] components)
+            : this(name, entity_type, tags, components)
         {
             this.texture = texture;
         }
@@ -70,6 +82,19 @@ namespace Engine
                 }
 
                 return sprite;
+            }
+        }
+        public Entity Clone
+        {
+            get
+            {
+                Entity copy = new Entity();
+                copy.name = this.name;
+                copy.entity_type = this.entity_type;
+                copy.tags = this.tags;
+                copy.texture = this.texture;
+                copy.components = this.components;
+                return copy;
             }
         }
 
@@ -122,16 +147,21 @@ namespace Engine
             tag_entities.Add("environment", new List<Entity>());
         }
 
-        public Entity Clone
+        public Component Get_Component(String name)
         {
-            get
+            Component comp = null;
+            if (components.ContainsKey(name))
+                 components.TryGetValue(name, out comp);
+            return comp;
+        }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            Component comp = Get_Component("position");
+            //Component comp = new Position();
+            if (comp is Position)
             {
-                Entity copy = new Entity();
-                copy.name = this.name;
-                copy.entity_type = this.entity_type;
-                copy.tags = this.tags;
-                copy.texture = this.texture;
-                return copy;
+                Position position = (Position)comp;
+                spriteBatch.Draw(this.Sprite.Tex, new Vector2(position.x, position.y), Color.White);
             }
         }
     }

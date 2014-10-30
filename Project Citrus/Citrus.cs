@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using Engine;
 using Engine.Entities.Types;
+using Project_Citrus.Engine.Components;
 #endregion
 
 namespace Project_Citrus
@@ -55,11 +56,12 @@ namespace Project_Citrus
             // TODO: use this.Content to load your game content here
             ContentLoader.content_manager = Content;
 
-            //Entity_Factory.Write(new Entity("worker3", new Type_Worker(), "worker", new String[] { "drawable", "solid", "unit" }));
+            //JSON_Loader.Write_Entity(new Entity("worker", new Type_Worker(), "worker", new String[] { "drawable", "solid", "unit" }));
+            JSON_Loader.Write_Entity(new Entity("worker", new Type_Worker(), "worker", new String[] { "drawable", "solid", "unit" }, new Position(), new Health()));
             worker = JSON_Loader.Get_Entity("worker");
             worker2 = JSON_Loader.Get_Entity("worker");
             wall = JSON_Loader.Get_Entity("wall");
-           // worker = entity_loader.
+            // worker = entity_loader.
             /*Entity_Factory.read2("worker2");
             Sprite sprite = new Sprite("images\\worker","worker");
             JSON_Helper<Sprite> spriteJSON = new JSON_Helper<Sprite>();
@@ -104,9 +106,9 @@ namespace Project_Citrus
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            spriteBatch.Draw(worker.Sprite.Tex, Vector2.Zero, Color.White);
-            spriteBatch.Draw(worker2.Sprite.Tex, new Vector2(150, 0), Color.White);
-            spriteBatch.Draw(wall.Sprite.Tex, new Vector2(50,0), Color.White);
+            worker.Draw(spriteBatch);
+            worker2.Draw(spriteBatch);
+            wall.Draw(spriteBatch);
             spriteBatch.End();
             // TODO: Add your drawing code here
 

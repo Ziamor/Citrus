@@ -40,6 +40,9 @@
   <ItemGroup>
     <Compile Include="Citrus.cs" />
     <Compile Include="ContentLoader.cs" />
+    <Compile Include="Engine\Component.cs" />
+    <Compile Include="Engine\Components\Health.cs" />
+    <Compile Include="Engine\Components\Position.cs" />
     <Compile Include="Engine\Entities\Types\Type_Static.cs" />
     <Compile Include="Engine\Entities\Types\Type_Worker.cs" />
     <Compile Include="Engine\Entity.cs" />

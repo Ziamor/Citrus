@@ -8,5 +8,6 @@
     "solid",
 	"environment"
   ],
-  "texture": "wall"
+  "texture": "wall",
+  "components": {}
 }

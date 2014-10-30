@@ -8,5 +8,16 @@
     "solid",
     "unit"
   ],
-  "texture": "worker"
+  "texture": "worker",
+  "components": {
+    "position": {
+      "$type": "Project_Citrus.Engine.Components.Position, Project Citrus",
+      "x": 50,
+      "y": 20
+    },
+    "health": {
+      "$type": "Project_Citrus.Engine.Components.Health, Project Citrus",
+      "HP": 100
+    }
+  }
 }
