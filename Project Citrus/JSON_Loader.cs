@@ -1,4 +1,5 @@
 ﻿using Engine;
+using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Project_Citrus
     enum Resource_Type
     {
         Entity,
-        Image
+        ImageInfo
     };
     static class JSON_Loader
     {
@@ -19,24 +20,22 @@ namespace Project_Citrus
         private static String working_dir = @"C:\Users\Alex\Documents\visual studio 2013\Projects\Project Citrus\Project Citrus\res\";
 
         private static Dictionary<String, Entity> entity_cache = new Dictionary<string, Entity>();
-        private static Dictionary<String, Sprite> sprite_cache = new Dictionary<string, Sprite>();
+        private static Dictionary<String, ImageInfo> imageInfo_cache = new Dictionary<string, ImageInfo>();
 
         public static Entity Get_Entity(String name)
         {
             Entity entity = null;
             entity = Get<Entity>(name, Resource_Type.Entity, entity_cache);
             if (entity != null)
-                return entity.Clone;
+                return DeepCopy.DeepClone<Entity>(entity.Clone);
             else return null;
         }
 
-        public static Sprite Get_Sprite(String name)
+        public static ImageInfo Get_ImageInfo(String name)
         {
-            Sprite sprite = null;
-            sprite = Get<Sprite>(name, Resource_Type.Image, sprite_cache);
-            if (sprite != null)
-                return sprite.Clone;
-            else return null;
+            ImageInfo imageInfo = null;
+            imageInfo = Get<ImageInfo>(name, Resource_Type.ImageInfo, imageInfo_cache);
+            return imageInfo;
         }
 
         private static T Get<T>(String name, Resource_Type type, Dictionary<String, T> cache)

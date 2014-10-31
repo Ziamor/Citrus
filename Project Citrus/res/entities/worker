@@ -1,23 +1,18 @@
 {
   "name": "worker",
-  "entity_type": {
-    "name": "Type_Worker"
-  },
-  "tags": [
-    "drawable",
-    "solid",
-    "unit"
-  ],
-  "texture": "worker",
-  "components": {
-    "position": {
+  "components": [
+    {
       "name": "position",
       "x": 50,
       "y": 20
     },
-    "health": {
+    {
       "name": "health",
       "HP": 100
+    },
+    {
+      "name": "image",
+      "image_name": "worker"
     }
-  }
+  ]
 }

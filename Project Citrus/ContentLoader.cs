@@ -11,16 +11,17 @@ namespace Project_Citrus
     {
         public static ContentManager content_manager = null;
         private static Dictionary<String, Texture2D> texture_cache = new Dictionary<string, Texture2D>();
-        public static Texture2D get_texture(String path)
+        public static Texture2D Get_texture(String name)
         {
             Texture2D texture = null;
-            if (texture_cache.ContainsKey(path))
-                texture_cache.TryGetValue(path, out texture);
+            if (texture_cache.ContainsKey(name))
+                texture_cache.TryGetValue(name, out texture);
             else
             {
-                texture = content_manager.Load<Texture2D>(@path);
+                String path = JSON_Loader.Get_ImageInfo(name).Path;
+                texture = content_manager.Load<Texture2D>(path);
                 if (texture != null)
-                    texture_cache.Add(path, texture);
+                    texture_cache.Add(name, texture);
             }
             return texture;
         }

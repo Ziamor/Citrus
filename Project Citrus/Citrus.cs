@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using Engine;
-using Engine.Entities.Types;
 using Project_Citrus.Engine.Components;
 #endregion
 
@@ -56,22 +55,14 @@ namespace Project_Citrus
             // TODO: use this.Content to load your game content here
             ContentLoader.content_manager = Content;
 
-            //JSON_Loader.Write_Entity(new Entity("worker", new Type_Worker(), "worker", new String[] { "drawable", "solid", "unit" }));
-            JSON_Loader.Write_Entity(new Entity("worker", new Type_Worker(), "worker", new String[] { "drawable", "solid", "unit" }, new Position(), new Health()));
+            //JSON_Loader.Write_Entity(new Entity("worker", "worker", new Position(), new Health(), new Image("worker")));
             worker = JSON_Loader.Get_Entity("worker");
             worker2 = JSON_Loader.Get_Entity("worker");
+            Position position = (Position)worker2.Get_Component("position");
+            position.x += 100;
             wall = JSON_Loader.Get_Entity("wall");
-            // worker = entity_loader.
-            /*Entity_Factory.read2("worker2");
-            Sprite sprite = new Sprite("images\\worker","worker");
-            JSON_Helper<Sprite> spriteJSON = new JSON_Helper<Sprite>();
-            spriteJSON.Write(sprite,"worker", Type.Image);
-            worker = Entity_Factory.get("worker");
-            wall = Entity_Factory.get("wall");
-
-            Entity.Add_Entity(worker);
-            Entity.Add_Entity(wall);
-            Entity.Data_Dump();*/
+            position = (Position)wall.Get_Component("position");
+            position.x += 200;
         }
 
         /// <summary>

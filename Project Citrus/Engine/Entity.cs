@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework;
 
 namespace Engine
 {
+    [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
     class Entity
     {
@@ -22,27 +23,19 @@ namespace Engine
         private static Dictionary<String, List<Entity>> tag_entities = new Dictionary<String, List<Entity>>(); // List keeps track of entity tags
 
         [JsonProperty(Required = Required.Always)]
-        private String name = "";
-        [JsonProperty(Required = Required.Always)]
-        private Entity_Type entity_type = null;
-        [JsonProperty(Required = Required.Always)]
-        private String[] tags; // A tag is used to find objects quickly        
+        private String name = "";       
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         private String texture = null;
-        [JsonProperty(Required = Required.Always)]
+        [JsonProperty(Required = Required.Always), JsonConverter(typeof(DictionaryComponentConverter))]
         private Dictionary<String, Component> components = new Dictionary<String, Component>();
-
-        private Sprite sprite = null;
 
         public Entity()
         {
         }
 
-        public Entity(String name, Entity_Type entity_type, String[] tags, params Component[] components)
+        public Entity(String name, params Component[] components)
         {
             this.name = name;
-            this.entity_type = entity_type;
-            this.tags = tags;
             foreach (Component comp in components)
             {
                 if (!this.components.ContainsKey(comp.Name))
@@ -50,10 +43,10 @@ namespace Engine
             }
         }
 
-        public Entity(String name, Entity_Type entity_type, String texture, String[] tags, params Component[] components)
-            : this(name, entity_type, tags, components)
+        public Entity(String name, String texture, params Component[] components)
+            : this(name, components)
         {
-            this.texture = texture;
+           // this.texture = texture;
         }
 
         public String Name
@@ -61,39 +54,20 @@ namespace Engine
             get { return name; }
         }
 
-        public Entity_Type Entity_Type
-        {
-            get { return entity_type; }
-        }
-
-        public String[] Tags
-        {
-            get { return tags; }
-        }
-
-        public Sprite Sprite
-        {
-            get
-            {
-                if (sprite == null && texture != null)
-                {
-                    // We haven't loaded the spirte yet, so we need to do that
-                    sprite = JSON_Loader.Get_Sprite(texture);// new Sprite("worker", @"images\worker");
-                }
-
-                return sprite;
-            }
-        }
         public Entity Clone
         {
             get
             {
                 Entity copy = new Entity();
                 copy.name = this.name;
-                copy.entity_type = this.entity_type;
-                copy.tags = this.tags;
+                //copy.entity_type = this.entity_type;
                 copy.texture = this.texture;
-                copy.components = this.components;
+                copy.components = new Dictionary<string, Component>();
+                foreach (KeyValuePair<String, Component> entry in this.components){
+                    String key = entry.Key.ToString();
+                    Component comp = entry.Value;
+                    copy.components.Add(key, comp);
+                }
                 return copy;
             }
         }
@@ -107,23 +81,7 @@ namespace Engine
         {
             if (entity != null)
             {
-                entities.Add(entity);
-                if (tag_entities.Count == 0)// Tags have yet to be intialized
-                    Initialize_Tags();
-                foreach (String tag in entity.Tags)
-                {
-                    if (tag_entities.ContainsKey(tag))
-                    {// If the tag is  valid, we need to get and add it to the correct list 
-                        List<Entity> tag_list;
-                        tag_entities.TryGetValue(tag, out tag_list);
-                        if (tag_list != null) // Make sure we got a valid list
-                        {
-                            tag_list.Add(entity);
-                            continue; // Entity added with tag, continue loop
-                        }
-                    }
-                    System.Diagnostics.Debug.WriteLine("Error adding entity with tag: " + tag); // We found an invalid tag
-                }
+                entities.Add(entity);                
             }
         }
 
@@ -151,17 +109,17 @@ namespace Engine
         {
             Component comp = null;
             if (components.ContainsKey(name))
-                 components.TryGetValue(name, out comp);
+                components.TryGetValue(name, out comp);
             return comp;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            Component comp = Get_Component("position");
+            Position position = (Position)Get_Component("position");
+            Image image = (Image)Get_Component("image");
             //Component comp = new Position();
-            if (comp is Position)
+            if (position != null && image != null)
             {
-                Position position = (Position)comp;
-                spriteBatch.Draw(this.Sprite.Tex, new Vector2(position.x, position.y), Color.White);
+                spriteBatch.Draw(image.Tex, new Vector2(position.x, position.y), Color.White);
             }
         }
     }

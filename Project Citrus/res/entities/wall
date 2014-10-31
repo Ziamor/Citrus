@@ -1,13 +1,19 @@
 {
   "name": "wall",
-  "entity_type": {
-    "name": "Type_Static"
-  },
-  "tags": [
-    "drawable",
-    "solid",
-	"environment"
-  ],
   "texture": "wall",
-  "components": {}
+  "components": [
+    {
+      "name": "position",
+      "x": 50,
+      "y": 20
+    },
+    {
+      "name": "health",
+      "HP": 100
+    },
+    {
+      "name": "image",
+      "image_name": "wall"
+    }
+  ]
 }

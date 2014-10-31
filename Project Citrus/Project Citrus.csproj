@@ -41,14 +41,14 @@
     <Compile Include="Citrus.cs" />
     <Compile Include="ComponentConverter.cs" />
     <Compile Include="ContentLoader.cs" />
+    <Compile Include="DeepCopy.cs" />
+    <Compile Include="DictionaryComponentConverter.cs" />
     <Compile Include="Engine\Component.cs" />
     <Compile Include="Engine\Components\Health.cs" />
     <Compile Include="Engine\Components\Position.cs" />
-    <Compile Include="Engine\Entities\Types\Type_Static.cs" />
-    <Compile Include="Engine\Entities\Types\Type_Worker.cs" />
+    <Compile Include="Engine\Components\Image.cs" />
     <Compile Include="Engine\Entity.cs" />
-    <Compile Include="Engine\Entity_Type.cs" />
-    <Compile Include="Engine\Sprite.cs" />
+    <Compile Include="ImageInfo.cs" />
     <Compile Include="JSON_Loader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,6 +94,9 @@
       <Project>{0479b4ac-1e61-44d0-9a1b-4137884c7194}</Project>
       <Name>Project_Citrus_Content_project</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Engine\Entities\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

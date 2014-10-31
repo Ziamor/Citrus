@@ -6,6 +6,7 @@ using System.Text;
 
 namespace Project_Citrus.Engine.Components
 {
+    [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
     class Position : Component
     {
