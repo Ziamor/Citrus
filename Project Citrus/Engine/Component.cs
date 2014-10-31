@@ -6,6 +6,7 @@ using System.Text;
 
 namespace Project_Citrus.Engine
 {
+    [JsonObject(MemberSerialization.OptIn), JsonConverter(typeof(ComponentConverter))]
     class Component
     {
         protected String name;

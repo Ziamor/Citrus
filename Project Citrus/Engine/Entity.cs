@@ -29,7 +29,7 @@ namespace Engine
         private String[] tags; // A tag is used to find objects quickly        
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         private String texture = null;
-        [JsonProperty(Required = Required.Always, ItemTypeNameHandling = TypeNameHandling.Objects)]
+        [JsonProperty(Required = Required.Always)]
         private Dictionary<String, Component> components = new Dictionary<String, Component>();
 
         private Sprite sprite = null;

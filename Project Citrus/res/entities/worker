@@ -11,12 +11,12 @@
   "texture": "worker",
   "components": {
     "position": {
-      "$type": "Project_Citrus.Engine.Components.Position, Project Citrus",
+      "name": "position",
       "x": 50,
       "y": 20
     },
     "health": {
-      "$type": "Project_Citrus.Engine.Components.Health, Project Citrus",
+      "name": "health",
       "HP": 100
     }
   }
