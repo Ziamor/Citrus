@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using Engine;
 using Project_Citrus.Engine.Components;
+using Project_Citrus.lua;
 #endregion
 
 namespace Project_Citrus
@@ -104,6 +105,6 @@ namespace Project_Citrus
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
-        }
+        }        
     }
 }

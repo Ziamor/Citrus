@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project_Citrus.lua;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,7 +9,8 @@ using System.Text;
 namespace Project_Citrus
 {
     class DeepCopy
-    {        public static T DeepClone<T>(T obj)
+    {
+        public static T DeepClone<T>(T obj)
         {
             using (var ms = new MemoryStream())
             {
@@ -18,6 +20,12 @@ namespace Project_Citrus
 
                 return (T)formatter.Deserialize(ms);
             }
+        }
+
+        [LuaFunctionAttr("outString", "Test, please ignore.")]
+        public static void outString()
+        {
+            System.Diagnostics.Debug.WriteLine("test test test");
         }
     }
 }
