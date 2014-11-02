@@ -39,17 +39,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Citrus.cs" />
-    <Compile Include="ComponentConverter.cs" />
-    <Compile Include="ContentLoader.cs" />
-    <Compile Include="DeepCopy.cs" />
-    <Compile Include="DictionaryComponentConverter.cs" />
+    <Compile Include="Engine\ComponentConverter.cs" />
+    <Compile Include="Engine\ContentLoader.cs" />
+    <Compile Include="Engine\DeepCopy.cs" />
+    <Compile Include="Engine\DictionaryComponentConverter.cs" />
     <Compile Include="Engine\Component.cs" />
     <Compile Include="Engine\Components\Health.cs" />
     <Compile Include="Engine\Components\Position.cs" />
     <Compile Include="Engine\Components\Image.cs" />
     <Compile Include="Engine\Entity.cs" />
+    <Compile Include="Engine\EntitySystems\RenderSystem.cs" />
+    <Compile Include="Engine\EntityManager.cs" />
     <Compile Include="ImageInfo.cs" />
-    <Compile Include="JSON_Loader.cs" />
+    <Compile Include="Engine\JSON_Loader.cs" />
     <Compile Include="lua\LuaFuncDescriptor.cs" />
     <Compile Include="lua\LuaFunctionAttr.cs" />
     <Compile Include="Program.cs" />
@@ -59,6 +61,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Engine\EntitySystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="KeraLua">

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 
-namespace Project_Citrus
+namespace Project_Citrus.Engine
 {
     class DeepCopy
     {
@@ -20,12 +20,6 @@ namespace Project_Citrus
 
                 return (T)formatter.Deserialize(ms);
             }
-        }
-
-        [LuaFunctionAttr("outString", "Test, please ignore.")]
-        public static void outString()
-        {
-            System.Diagnostics.Debug.WriteLine("test test test");
-        }
+        }        
     }
 }

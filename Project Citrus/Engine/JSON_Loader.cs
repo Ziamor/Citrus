@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Project_Citrus
+namespace Project_Citrus.Engine
 {
     enum Resource_Type
     {
@@ -27,7 +27,7 @@ namespace Project_Citrus
             Entity entity = null;
             entity = Get<Entity>(name, Resource_Type.Entity, entity_cache);
             if (entity != null)
-                return DeepCopy.DeepClone<Entity>(entity.Clone);
+                return DeepCopy.DeepClone<Entity>(entity);
             else return null;
         }
 

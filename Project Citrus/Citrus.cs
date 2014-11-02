@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Engine;
 using Project_Citrus.Engine.Components;
 using Project_Citrus.lua;
+using Project_Citrus.Engine;
 #endregion
 
 namespace Project_Citrus
@@ -22,6 +23,7 @@ namespace Project_Citrus
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        EntityManager entityManager;
         Entity worker = null;
         Entity worker2 = null;
         Entity wall = null;
@@ -40,7 +42,7 @@ namespace Project_Citrus
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here            
+            // TODO: Add your initialization logic here                     
             base.Initialize();
         }
 
@@ -56,6 +58,9 @@ namespace Project_Citrus
             // TODO: use this.Content to load your game content here
             ContentLoader.content_manager = Content;
 
+            entityManager = new EntityManager(spriteBatch);
+            Program.registerLuaFunctions(entityManager);
+
             //JSON_Loader.Write_Entity(new Entity("worker", "worker", new Position(), new Health(), new Image("worker")));
             worker = JSON_Loader.Get_Entity("worker");
             worker2 = JSON_Loader.Get_Entity("worker");
@@ -64,6 +69,15 @@ namespace Project_Citrus
             wall = JSON_Loader.Get_Entity("wall");
             position = (Position)wall.Get_Component("position");
             position.x += 200;
+
+            entityManager.Add_Entity(worker);
+            entityManager.Add_Entity(worker2);
+            entityManager.Add_Entity(wall);
+
+            entityManager.RegisterToRenderSystem(worker);
+            entityManager.RegisterToRenderSystem(worker2);
+            entityManager.RegisterToRenderSystem(wall);
+            Program.pLuaVM.DoFile(@"C:\Users\Alex\Documents\visual studio 2013\Projects\Project Citrus\Project Citrus\res\scripts\" + "script.lua");
         }
 
         /// <summary>
@@ -98,13 +112,9 @@ namespace Project_Citrus
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            worker.Draw(spriteBatch);
-            worker2.Draw(spriteBatch);
-            wall.Draw(spriteBatch);
+            entityManager.Draw(spriteBatch, gameTime);
             spriteBatch.End();
-            // TODO: Add your drawing code here
-
             base.Draw(gameTime);
-        }        
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace Project_Citrus
     /// </summary>
     public static class Program
     {
-        private static Lua pLuaVM = new Lua();
+        public static Lua pLuaVM = new Lua();
         public static Hashtable pLuaFuncs = new Hashtable();
         /// <summary>
         /// The main entry point for the application.
@@ -31,7 +31,7 @@ namespace Project_Citrus
             using (var game = new Citrus())
             {
                 registerLuaFunctions(game);
-                //pLuaVM.RegisterFunction("outString", typeof(DeepCopy).GetMethod("outString"));
+                registerLuaFunctions(typeof(Entity));
                 //pLuaVM.DoFile(@working_dir + "script.lua");
                 game.Run();
             }
