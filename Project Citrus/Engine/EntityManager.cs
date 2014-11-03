@@ -1,7 +1,6 @@
-﻿using Engine;
+﻿using Project_Citrus.Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Project_Citrus.Engine;
 using Project_Citrus.Engine.EntitySystems;
 using Project_Citrus.lua;
 using System;
@@ -11,14 +10,15 @@ using System.Text;
 
 namespace Project_Citrus.Engine
 {
-    class EntityManager
+    public class EntityManager
     {
         private List<Entity> entities = new List<Entity>(); // All entities in a list
         private RenderSystem renderSystem = new RenderSystem();
+        private LogicSystem logicSystem = new LogicSystem();
 
         public EntityManager(SpriteBatch spriteBatch)
         {
-            renderSystem.Initialze(spriteBatch);
+            renderSystem.Initialize(spriteBatch);
         }
 
         public List<Entity> Entities
@@ -35,6 +35,14 @@ namespace Project_Citrus.Engine
             }
         }
 
+        [LuaFunctionAttr("Entity_Exists", "Check if an entity is already created.", new String[] { "Entity to check." })]
+        public Boolean Entity_Exists(Entity entity)
+        {
+            if (entities.Contains(entity))
+                return true;
+            return false;
+        }
+
         [LuaFunctionAttr("Create_Entity", "Create an entity.", new String[] { "ID of the entity to create." })]
         public Entity Create_Entity(String id_type)
         {
@@ -48,6 +56,12 @@ namespace Project_Citrus.Engine
             return this.renderSystem.Register_Entity(entity);
         }
 
+        [LuaFunctionAttr("RegisterToLogicSystem", "Register the entity to the logic system. Returns false if the entity did not have the valid component types", new String[] { "Entity to register." })]
+        public Boolean RegisterToLogicSystem(Entity entity)
+        {
+            return this.logicSystem.Register_Entity(entity);
+        }
+
         [LuaFunctionAttr("Data_Dump", "Get a list of all entities in the world.")]
         public void Data_Dump()
         {
@@ -57,7 +71,10 @@ namespace Project_Citrus.Engine
                 System.Diagnostics.Debug.WriteLine(ent.Name);
             }
         }
-
+        public void Update(GameTime gameTime)
+        {
+            logicSystem.Execute(gameTime);
+        }
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             renderSystem.Execute(spriteBatch, gameTime);

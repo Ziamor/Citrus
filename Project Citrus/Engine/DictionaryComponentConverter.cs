@@ -26,8 +26,12 @@ namespace Project_Citrus.Engine
                 serializer.Populate(jArray.CreateReader(), target);
                 Dictionary<String, Component> dictionary = new Dictionary<string, Component>();
                 foreach (Component comp in target)
-                    if (!dictionary.ContainsKey(comp.Name))
-                        dictionary.Add(comp.Name, comp);
+                    try
+                    {
+                        if (!dictionary.ContainsKey(comp.Name))
+                            dictionary.Add(comp.Name, comp);
+                    }
+                    catch (Exception e) { System.Diagnostics.Debug.WriteLine(e.Message); }
                 return dictionary;
             }
             return new Dictionary<string, Component>();

@@ -8,11 +8,13 @@ namespace Project_Citrus.Engine.Components
 {
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    class Health : Component
+    class LogicScript : Component
     {
         [JsonProperty(Required = Required.Always)]
-        public int hp = 100;
-        public Health() { this.name = "health"; }
-        public int HP { get { return hp; } set { hp = value; } }
+        private String script = "fireball_logic.lua";
+
+        public LogicScript() { this.name = "logic_script"; }
+
+        public String Script { get { return script; } set { script = value; } }
     }
 }

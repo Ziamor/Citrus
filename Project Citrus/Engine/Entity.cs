@@ -14,11 +14,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Project_Citrus.lua;
 
-namespace Engine
+namespace Project_Citrus.Engine
 {
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    class Entity
+    public class Entity
     {
         [JsonProperty(Required = Required.Always)]
         private String name = "";
@@ -59,6 +59,7 @@ namespace Engine
             }
         }
 
+        [LuaFunctionAttr("Get_Component", "Get a component of an entity, returns null is the entity does not have the component.", new String[] { "ID of the component type." })]
         public Component Get_Component(String name)
         {
             Component comp = null;
@@ -67,6 +68,7 @@ namespace Engine
             return comp;
         }
 
+        [LuaFunctionAttr("Has_Component", "Check if an entity has a component.", new String[] { "ID of the component type." })]
         public Boolean Has_Component(String name)
         {
             if (components.ContainsKey(name))
@@ -81,7 +83,7 @@ namespace Engine
             //Component comp = new Position();
             if (position != null && image != null)
             {
-                spriteBatch.Draw(image.Tex, new Vector2(position.x, position.y), Color.White);
+                spriteBatch.Draw(image.Tex, new Vector2(position.X, position.Y), Color.White);
             }
         }
 

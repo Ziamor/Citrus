@@ -1,5 +1,5 @@
 ﻿#region Using Statements
-using Engine;
+using Project_Citrus.Engine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,13 +26,8 @@ namespace Project_Citrus
         [STAThread]
         static void Main()
         {
-            String working_dir = @"C:\Users\Alex\Documents\visual studio 2013\Projects\Project Citrus\Project Citrus\res\scripts\";
-
             using (var game = new Citrus())
             {
-                registerLuaFunctions(game);
-                registerLuaFunctions(typeof(Entity));
-                //pLuaVM.DoFile(@working_dir + "script.lua");
                 game.Run();
             }
         }

@@ -1,4 +1,4 @@
-﻿using Engine;
+﻿using Project_Citrus.Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project_Citrus.Engine.Components;
@@ -16,7 +16,7 @@ namespace Project_Citrus.Engine.EntitySystems
             get { return new String[] { "position", "image" }; }
         }
 
-        public override bool Initialze(params object[] param)
+        public override bool Initialize(params object[] param)
         {
             return true;
         }
@@ -32,7 +32,7 @@ namespace Project_Citrus.Engine.EntitySystems
                 //Component comp = new Position();
                 if (position != null && image != null)
                 {
-                    spriteBatch.Draw(image.Tex, new Vector2(position.x, position.y), Color.White);
+                    spriteBatch.Draw(image.Tex, new Vector2(position.X, position.Y), Color.White);
                 }
             }
         }

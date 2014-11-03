@@ -11,10 +11,13 @@ namespace Project_Citrus.Engine.Components
     class Position : Component
     {
         [JsonProperty(Required = Required.Always)]
-        public int x = 50;
+        private int x = 50;
         [JsonProperty(Required = Required.Always)]
-        public int y = 20;
+        private int y = 20;
 
         public Position() { this.name = "position"; }
+
+        public int X { get { return x; } set { x = value; } }
+        public int Y { get { return y; } set { y = value; } }
     }
 }

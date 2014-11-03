@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="Citrus.cs" />
     <Compile Include="Engine\ComponentConverter.cs" />
+    <Compile Include="Engine\Components\LogicScript.cs" />
     <Compile Include="Engine\ContentLoader.cs" />
     <Compile Include="Engine\DeepCopy.cs" />
     <Compile Include="Engine\DictionaryComponentConverter.cs" />
@@ -48,10 +49,12 @@
     <Compile Include="Engine\Components\Position.cs" />
     <Compile Include="Engine\Components\Image.cs" />
     <Compile Include="Engine\Entity.cs" />
+    <Compile Include="Engine\EntitySystems\LogicSystem.cs" />
     <Compile Include="Engine\EntitySystems\RenderSystem.cs" />
     <Compile Include="Engine\EntityManager.cs" />
     <Compile Include="ImageInfo.cs" />
     <Compile Include="Engine\JSON_Loader.cs" />
+    <Compile Include="Engine\KeyboardManager.cs" />
     <Compile Include="lua\LuaFuncDescriptor.cs" />
     <Compile Include="lua\LuaFunctionAttr.cs" />
     <Compile Include="Program.cs" />

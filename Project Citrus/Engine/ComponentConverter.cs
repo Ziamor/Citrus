@@ -26,6 +26,10 @@ namespace Project_Citrus.Engine
                 {
                     return new Image();
                 }
+                else if (jObject["name"].ToString() == "logic_script")
+                {
+                    return new LogicScript();
+                }
 
             return new Component();
         }
@@ -52,9 +56,9 @@ namespace Project_Citrus.Engine
                 writer.WritePropertyName("name");
                 writer.WriteValue(position.Name);
                 writer.WritePropertyName("x");
-                writer.WriteValue(position.x);
+                writer.WriteValue(position.Y);
                 writer.WritePropertyName("y");
-                writer.WriteValue(position.y);
+                writer.WriteValue(position.X);
                 writer.WriteEndObject();
             }
             else if (value is Health)
@@ -75,6 +79,16 @@ namespace Project_Citrus.Engine
                 writer.WriteValue(image.Name);
                 writer.WritePropertyName("image_name");
                 writer.WriteValue(image.image_name);
+                writer.WriteEndObject();
+            }
+            else if (value is LogicScript)
+            {
+                LogicScript logicScript = (LogicScript)value;
+                writer.WriteStartObject();
+                writer.WritePropertyName("name");
+                writer.WriteValue(logicScript.Name);
+                writer.WritePropertyName("script");
+                writer.WriteValue(logicScript.Script);
                 writer.WriteEndObject();
             }
         }

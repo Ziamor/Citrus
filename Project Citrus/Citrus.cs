@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
-using Engine;
+using Project_Citrus;
 using Project_Citrus.Engine.Components;
 using Project_Citrus.lua;
 using Project_Citrus.Engine;
@@ -23,10 +23,8 @@ namespace Project_Citrus
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        EntityManager entityManager;
-        Entity worker = null;
-        Entity worker2 = null;
-        Entity wall = null;
+        public static EntityManager entityManager;
+        public static KeyboardManager keyboardManager;
         public Citrus()
             : base()
         {
@@ -59,25 +57,10 @@ namespace Project_Citrus
             ContentLoader.content_manager = Content;
 
             entityManager = new EntityManager(spriteBatch);
-            Program.registerLuaFunctions(entityManager);
+            Program.registerLuaFunctions(entityManager);  
 
-            //JSON_Loader.Write_Entity(new Entity("worker", "worker", new Position(), new Health(), new Image("worker")));
-            worker = JSON_Loader.Get_Entity("worker");
-            worker2 = JSON_Loader.Get_Entity("worker");
-            Position position = (Position)worker2.Get_Component("position");
-            position.x += 100;
-            wall = JSON_Loader.Get_Entity("wall");
-            position = (Position)wall.Get_Component("position");
-            position.x += 200;
-
-            entityManager.Add_Entity(worker);
-            entityManager.Add_Entity(worker2);
-            entityManager.Add_Entity(wall);
-
-            entityManager.RegisterToRenderSystem(worker);
-            entityManager.RegisterToRenderSystem(worker2);
-            entityManager.RegisterToRenderSystem(wall);
-            Program.pLuaVM.DoFile(@"C:\Users\Alex\Documents\visual studio 2013\Projects\Project Citrus\Project Citrus\res\scripts\" + "script.lua");
+            keyboardManager = new KeyboardManager();
+            Program.registerLuaFunctions(keyboardManager);           
         }
 
         /// <summary>
@@ -100,7 +83,19 @@ namespace Project_Citrus
                 Exit();
 
             // TODO: Add your update logic here
-
+            keyboardManager.UpdateState();
+            if (keyboardManager.IsKeyPressed(Keys.R))
+            {               
+                try
+                {
+                    Program.pLuaVM.DoFile(@"C:\Users\Alex\Documents\visual studio 2013\Projects\Project Citrus\Project Citrus\res\scripts\" + "world_test.lua");
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+            }
+            entityManager.Update(gameTime);
             base.Update(gameTime);
         }
 
