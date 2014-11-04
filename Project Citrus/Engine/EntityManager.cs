@@ -1,8 +1,8 @@
-﻿using Project_Citrus.Engine;
+﻿using Project_Citrus.Engine.ContentLoading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project_Citrus.Engine.EntitySystems;
-using Project_Citrus.lua;
+using Project_Citrus.Engine.lua;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,8 +26,8 @@ namespace Project_Citrus.Engine
             get { return entities; }
         }
 
-        [LuaFunctionAttr("Add_Entity", "Add an entity to the world.", new String[] { "Entity to add." })]
-        public void Add_Entity(Entity entity)
+        [LuaFunctionAttr("Add_Entity_To_World", "Add an entity to the world.", new String[] { "Entity to add." })]
+        public void Add_Entity_To_World(Entity entity)
         {
             if (entity != null)
             {

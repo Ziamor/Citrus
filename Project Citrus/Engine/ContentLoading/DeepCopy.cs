@@ -1,4 +1,4 @@
-﻿using Project_Citrus.lua;
+﻿using Project_Citrus.Engine.lua;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 
-namespace Project_Citrus.Engine
+namespace Project_Citrus.Engine.ContentLoading
 {
     class DeepCopy
     {

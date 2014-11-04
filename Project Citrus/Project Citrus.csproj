@@ -39,24 +39,31 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Citrus.cs" />
-    <Compile Include="Engine\ComponentConverter.cs" />
+    <Compile Include="Engine\ContentLoading\ComponentConverter.cs" />
     <Compile Include="Engine\Components\LogicScript.cs" />
-    <Compile Include="Engine\ContentLoader.cs" />
-    <Compile Include="Engine\DeepCopy.cs" />
-    <Compile Include="Engine\DictionaryComponentConverter.cs" />
+    <Compile Include="Engine\ContentLoading\ContentLoader.cs" />
+    <Compile Include="Engine\ContentLoading\DeepCopy.cs" />
+    <Compile Include="Engine\ContentLoading\DictionaryComponentConverter.cs" />
     <Compile Include="Engine\Component.cs" />
     <Compile Include="Engine\Components\Health.cs" />
     <Compile Include="Engine\Components\Position.cs" />
     <Compile Include="Engine\Components\Image.cs" />
+    <Compile Include="Engine\ContentLoading\WidgetConverter.cs" />
+    <Compile Include="Engine\ContentLoading\WidgetListConverter.cs" />
     <Compile Include="Engine\Entity.cs" />
     <Compile Include="Engine\EntitySystems\LogicSystem.cs" />
     <Compile Include="Engine\EntitySystems\RenderSystem.cs" />
     <Compile Include="Engine\EntityManager.cs" />
+    <Compile Include="Engine\Managers\MenuManager.cs" />
+    <Compile Include="Engine\Menus\Button.cs" />
+    <Compile Include="Engine\Menus\Menu.cs" />
+    <Compile Include="Engine\Menus\Widget.cs" />
+    <Compile Include="Engine\Menus\WidgetContainer.cs" />
     <Compile Include="ImageInfo.cs" />
-    <Compile Include="Engine\JSON_Loader.cs" />
+    <Compile Include="Engine\ContentLoading\JSON_Loader.cs" />
     <Compile Include="Engine\KeyboardManager.cs" />
-    <Compile Include="lua\LuaFuncDescriptor.cs" />
-    <Compile Include="lua\LuaFunctionAttr.cs" />
+    <Compile Include="Engine\lua\LuaFuncDescriptor.cs" />
+    <Compile Include="Engine\lua\LuaFunctionAttr.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -79,6 +86,9 @@
     </Reference>
     <Reference Include="NLua">
       <HintPath>..\packages\NLua.1.3.1.5\lib\net40\NLua.dll</HintPath>
+    </Reference>
+    <Reference Include="RuminateGui">
+      <HintPath>libs\RuminateGui.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />

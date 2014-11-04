@@ -6,7 +6,7 @@ using System.Linq;
 using System.Diagnostics;
 using NLua;
 using System.Reflection;
-using Project_Citrus.lua;
+using Project_Citrus.Engine.lua;
 using System.Collections;
 #endregion
 

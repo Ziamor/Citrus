@@ -9,10 +9,11 @@ using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Linq;
 using Project_Citrus;
 using Project_Citrus.Engine;
+using Project_Citrus.Engine.ContentLoading;
 using Project_Citrus.Engine.Components;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using Project_Citrus.lua;
+using Project_Citrus.Engine.lua;
 
 namespace Project_Citrus.Engine
 {

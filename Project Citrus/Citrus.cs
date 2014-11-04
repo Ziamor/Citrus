@@ -10,8 +10,11 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using Project_Citrus;
 using Project_Citrus.Engine.Components;
-using Project_Citrus.lua;
+using Project_Citrus.Engine.lua;
 using Project_Citrus.Engine;
+using Project_Citrus.Engine.ContentLoading;
+using Project_Citrus.Engine.Menus;
+using Project_Citrus.Engine.Managers;
 #endregion
 
 namespace Project_Citrus
@@ -25,6 +28,8 @@ namespace Project_Citrus
         SpriteBatch spriteBatch;
         public static EntityManager entityManager;
         public static KeyboardManager keyboardManager;
+        public static MenuManager menuManager;
+        private Menu main_menu;
         public Citrus()
             : base()
         {
@@ -57,10 +62,17 @@ namespace Project_Citrus
             ContentLoader.content_manager = Content;
 
             entityManager = new EntityManager(spriteBatch);
-            Program.registerLuaFunctions(entityManager);  
+            Program.registerLuaFunctions(entityManager);
 
             keyboardManager = new KeyboardManager();
-            Program.registerLuaFunctions(keyboardManager);           
+            Program.registerLuaFunctions(keyboardManager);
+
+            menuManager = new MenuManager();
+            Program.registerLuaFunctions(menuManager);
+
+            //JSON_Loader.Write_Menu(new Menu("main_menu", false, true, true, new Button("play")));
+            //main_menu = JSON_Loader.Get_Menu("main_menu");
+            //menuManager.Add_Menu(main_menu);
         }
 
         /// <summary>
@@ -85,7 +97,7 @@ namespace Project_Citrus
             // TODO: Add your update logic here
             keyboardManager.UpdateState();
             if (keyboardManager.IsKeyPressed(Keys.R))
-            {               
+            {
                 try
                 {
                     Program.pLuaVM.DoFile(@"C:\Users\Alex\Documents\visual studio 2013\Projects\Project Citrus\Project Citrus\res\scripts\" + "world_test.lua");
@@ -108,6 +120,7 @@ namespace Project_Citrus
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             entityManager.Draw(spriteBatch, gameTime);
+            menuManager.Draw(spriteBatch, gameTime);
             spriteBatch.End();
             base.Draw(gameTime);
         }

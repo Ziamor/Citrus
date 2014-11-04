@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Project_Citrus.Engine
+namespace Project_Citrus.Engine.ContentLoading
 {
     class ComponentConverter : JsonConverter
     {

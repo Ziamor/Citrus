@@ -6,21 +6,24 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Project_Citrus.Engine.Menus;
 
-namespace Project_Citrus.Engine
+namespace Project_Citrus.Engine.ContentLoading
 {
     enum Resource_Type
     {
         Entity,
-        ImageInfo
+        ImageInfo,
+        Menu
     };
     static class JSON_Loader
     {
-        private static String[] type_dir = new string[] { @"entities", @"images" };
+        private static String[] type_dir = new string[] { @"entities", @"images", @"menus" };
         private static String working_dir = @"C:\Users\Alex\Documents\visual studio 2013\Projects\Project Citrus\Project Citrus\res\";
 
         private static Dictionary<String, Entity> entity_cache = new Dictionary<string, Entity>();
         private static Dictionary<String, ImageInfo> imageInfo_cache = new Dictionary<string, ImageInfo>();
+        private static Dictionary<String, Menu> menu_cache = new Dictionary<string, Menu>();
 
         public static Entity Get_Entity(String name)
         {
@@ -36,6 +39,13 @@ namespace Project_Citrus.Engine
             ImageInfo imageInfo = null;
             imageInfo = Get<ImageInfo>(name, Resource_Type.ImageInfo, imageInfo_cache);
             return imageInfo;
+        }
+
+        public static Menu Get_Menu(String name)
+        {
+            Menu menu = null;
+            menu = Get<Menu>(name, Resource_Type.Menu, menu_cache);
+            return menu;
         }
 
         private static T Get<T>(String name, Resource_Type type, Dictionary<String, T> cache)
@@ -64,6 +74,12 @@ namespace Project_Citrus.Engine
         {
             Write<Entity>(entity, entity.Name, Resource_Type.Entity);
         }
+
+        public static void Write_Menu(Menu menu)
+        {
+            Write<Menu>(menu, menu.Name, Resource_Type.Menu);
+        }
+
         private static void Write<T>(T obj, String name, Resource_Type type)
         {
             //JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Objects };
