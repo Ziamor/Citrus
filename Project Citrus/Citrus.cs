@@ -15,6 +15,7 @@ using Project_Citrus.Engine;
 using Project_Citrus.Engine.ContentLoading;
 using Project_Citrus.Engine.Menus;
 using Project_Citrus.Engine.Managers;
+using Project_Citrus.Engine.Menus.Widgets;
 #endregion
 
 namespace Project_Citrus
@@ -45,7 +46,8 @@ namespace Project_Citrus
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here                     
+            // TODO: Add your initialization logic here  
+            this.IsMouseVisible = true;   
             base.Initialize();
         }
 
@@ -72,7 +74,14 @@ namespace Project_Citrus
 
             //JSON_Loader.Write_Menu(new Menu("main_menu", false, true, true, new Button("play")));
             //main_menu = JSON_Loader.Get_Menu("main_menu");
-            //menuManager.Add_Menu(main_menu);
+            Vector2 screen_size = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
+            Panel pnl_buttons = new Panel("pnl_buttons",new Vector2(20,20),new Vector2(60,60));
+            Button btn_play = new Button("btn_play", "Play", new Vector2(0,0));
+            pnl_buttons.Add_Widget(btn_play);
+            btn_play.Image_Name = "button_green";
+
+            main_menu = new Menu("main_menu", screen_size, false, true, true, pnl_buttons);
+            menuManager.Add_Menu(main_menu);
         }
 
         /// <summary>
@@ -100,7 +109,7 @@ namespace Project_Citrus
             {
                 try
                 {
-                    Program.pLuaVM.DoFile(@"C:\Users\Alex\Documents\visual studio 2013\Projects\Project Citrus\Project Citrus\res\scripts\" + "world_test.lua");
+                    // Program.pLuaVM.DoFile(@"C:\Users\Alex\Documents\visual studio 2013\Projects\Project Citrus\Project Citrus\res\scripts\" + "world_test.lua");
                 }
                 catch (Exception e)
                 {

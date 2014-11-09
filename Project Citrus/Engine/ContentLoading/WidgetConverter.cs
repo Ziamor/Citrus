@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Project_Citrus.Engine.Menus;
+using Project_Citrus.Engine.Menus.Widgets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +40,7 @@ namespace Project_Citrus.Engine.ContentLoading
             {
                 Button button = (Button)value;
                 writer.WriteStartObject();
-                writer.WritePropertyName("type");
+                /*writer.WritePropertyName("type");
                 writer.WriteValue("button");
                 writer.WritePropertyName("name");
                 writer.WriteValue(button.Name);
@@ -52,7 +53,7 @@ namespace Project_Citrus.Engine.ContentLoading
                 writer.WritePropertyName("width");
                 writer.WriteValue(button.Width);
                 writer.WritePropertyName("height");
-                writer.WriteValue(button.Height);
+                writer.WriteValue(button.Height);*/
                 writer.WriteEndObject();
             }
         }

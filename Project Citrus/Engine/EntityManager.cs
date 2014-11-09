@@ -46,7 +46,7 @@ namespace Project_Citrus.Engine
         [LuaFunctionAttr("Create_Entity", "Create an entity.", new String[] { "ID of the entity to create." })]
         public Entity Create_Entity(String id_type)
         {
-            Entity entity = JSON_Loader.Get_Entity(id_type);
+            Entity entity = ContentLoader.Get_Entity(id_type);
             return entity;
         }
 

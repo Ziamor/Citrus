@@ -41,7 +41,6 @@
     <Compile Include="Citrus.cs" />
     <Compile Include="Engine\ContentLoading\ComponentConverter.cs" />
     <Compile Include="Engine\Components\LogicScript.cs" />
-    <Compile Include="Engine\ContentLoading\ContentLoader.cs" />
     <Compile Include="Engine\ContentLoading\DeepCopy.cs" />
     <Compile Include="Engine\ContentLoading\DictionaryComponentConverter.cs" />
     <Compile Include="Engine\Component.cs" />
@@ -55,12 +54,17 @@
     <Compile Include="Engine\EntitySystems\RenderSystem.cs" />
     <Compile Include="Engine\EntityManager.cs" />
     <Compile Include="Engine\Managers\MenuManager.cs" />
-    <Compile Include="Engine\Menus\Button.cs" />
+    <Compile Include="Engine\Menus\Formats\ButtonFormat.cs" />
+    <Compile Include="Engine\Menus\Formats\Format.cs" />
+    <Compile Include="Engine\Menus\Layouts\VerticalLayout.cs" />
+    <Compile Include="Engine\Menus\RenderInstructions\RenderInstruction.cs" />
+    <Compile Include="Engine\Menus\Widgets\Button.cs" />
     <Compile Include="Engine\Menus\Menu.cs" />
-    <Compile Include="Engine\Menus\Widget.cs" />
-    <Compile Include="Engine\Menus\WidgetContainer.cs" />
-    <Compile Include="ImageInfo.cs" />
-    <Compile Include="Engine\ContentLoading\JSON_Loader.cs" />
+    <Compile Include="Engine\Menus\Widgets\Label.cs" />
+    <Compile Include="Engine\Menus\Widgets\Panel.cs" />
+    <Compile Include="Engine\Menus\Widgets\Widget.cs" />
+    <Compile Include="Engine\ContentLoading\ImageInfo.cs" />
+    <Compile Include="Engine\ContentLoading\ContentLoader.cs" />
     <Compile Include="Engine\KeyboardManager.cs" />
     <Compile Include="Engine\lua\LuaFuncDescriptor.cs" />
     <Compile Include="Engine\lua\LuaFunctionAttr.cs" />
@@ -86,9 +90,6 @@
     </Reference>
     <Reference Include="NLua">
       <HintPath>..\packages\NLua.1.3.1.5\lib\net40\NLua.dll</HintPath>
-    </Reference>
-    <Reference Include="RuminateGui">
-      <HintPath>libs\RuminateGui.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />

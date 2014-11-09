@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Project_Citrus.Engine.ContentLoading;
+using Project_Citrus.ContentLoading;
 
 namespace Project_Citrus.Engine.Components
 {
@@ -15,6 +16,7 @@ namespace Project_Citrus.Engine.Components
     {
         [JsonProperty(Required = Required.Always)]
         public String image_name = null;
+        private ImageInfo image_info = null;
         public Image() { this.name = "image"; }
         public Image(String image_name)
             : base()
@@ -22,12 +24,15 @@ namespace Project_Citrus.Engine.Components
             this.name = "image";
             this.image_name = image_name;
         }
-
-        public Texture2D Tex
-        {
-            get
-            {
-                return ContentLoader.Get_texture(this.image_name);
+        public ImageInfo Image_Info{
+            get{
+                if (image_info != null)
+                    return image_info;
+                else
+                {
+                    image_info = ContentLoader.Get_ImageInfo(image_name);
+                    return image_info;
+                }
             }
         }
     }

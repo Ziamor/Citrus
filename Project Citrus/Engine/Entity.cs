@@ -84,7 +84,7 @@ namespace Project_Citrus.Engine
             //Component comp = new Position();
             if (position != null && image != null)
             {
-                spriteBatch.Draw(image.Tex, new Vector2(position.X, position.Y), Color.White);
+                spriteBatch.Draw(image.Image_Info.Tex, new Vector2(position.X, position.Y), Color.White);
             }
         }
 
