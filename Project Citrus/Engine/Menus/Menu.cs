@@ -26,7 +26,7 @@ namespace Project_Citrus.Engine.Menus
             this.blockUpdate = blockUpdate;
             this.blockDraw = blockDraw;
             this.blockInput = blockInput;
-            menu_panel = new Panel("pnl_root",Vector2.Zero, size, new_widgets);
+            menu_panel = new Panel("pnl_root", Vector2.Zero, size, Anchor.TOP_LEFT, new_widgets);
         }
 
         public String Name { get { return name; } }

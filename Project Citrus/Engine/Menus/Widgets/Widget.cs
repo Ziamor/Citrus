@@ -20,47 +20,72 @@ namespace Project_Citrus.Engine.Menus.Widgets
         protected List<Widget> widgets;
         protected ImageInfo image_info;
         protected Widget parent;
-        protected Format WidgetFormat;
-        protected Boolean formated;
-        protected Vector2 formated_position;
-        protected Vector2 formated_size;
-        public Widget() : this(null, null, Vector2.Zero, new Vector2(1, 1), null) { }
-        public Widget(String name) : this(name, null, Vector2.Zero, new Vector2(1, 1), null) { }
-        public Widget(String name, Widget parent) : this(name, parent, Vector2.Zero, new Vector2(1, 1), null) { }
-        public Widget(String name, Vector2 position) : this(name, null, position, new Vector2(1, 1), null) { }
-        public Widget(String name, Vector2 position, Vector2 size) : this(name, null, position, size, null) { }
-        public Widget(String name, Vector2 position, Vector2 size, params Widget[] new_widgets) : this(name, null, position, size, null) { }
-        public Widget(String name, Widget parent, Vector2 position, Vector2 size, params Widget[] new_widgets)
+        protected Anchor origin;
+        protected Anchor anchor;
+        public Widget() : this(null, null, Vector2.Zero, new Vector2(1, 1), Anchor.TOP_LEFT, null) { }
+        public Widget(String name) : this(name, null, Vector2.Zero, new Vector2(1, 1), Anchor.TOP_LEFT, null) { }
+        public Widget(String name, Widget parent) : this(name, parent, Vector2.Zero, new Vector2(1, 1), Anchor.TOP_LEFT, null) { }
+        public Widget(String name, Vector2 position, Anchor anchor) : this(name, null, position, new Vector2(1, 1), anchor, null) { }
+        public Widget(String name, Vector2 position, Vector2 size, Anchor anchor) : this(name, null, position, size, anchor, null) { }
+        public Widget(String name, Vector2 position, Vector2 size, Anchor anchor, params Widget[] new_widgets) : this(name, null, position, size, anchor, new_widgets) { }
+        public Widget(String name, Widget parent, Vector2 position, Vector2 size, Anchor anchor, params Widget[] new_widgets)
+            : this(name, parent, position, size, Anchor.TOP_LEFT, anchor, new_widgets) { }
+        public Widget(String name, Widget parent, Vector2 position, Vector2 size, Anchor origin, Anchor anchor, params Widget[] new_widgets)
         {
             this.name = name;
             this.position = position;
             this.size = size;
+            this.origin = origin;
+            this.anchor = anchor;
             this.parent = parent;
             widgets = new List<Widget>();
             if (new_widgets != null)
                 foreach (Widget widget in new_widgets)
                     this.Add_Widget(widget);
-            this.formated = false;
-            this.Initialize();
         }
         public String Name { get { return name; } }
         public String Image_Name { get { return image_name; } set { image_name = value; } }
+        public List<Widget> Widgets { get { return widgets; } }
         public virtual Vector2 Position { get { return position; } set { position = value; } }
         public virtual Vector2 Size { get { return size; } set { size = value; } }
-        public List<Widget> Widgets { get { return widgets; } }
-        public virtual Vector2 Formated_Position { get { return formated_position; } set { formated_position = value; } }
-        public virtual Vector2 Formated_Size { get { return formated_size; } set { formated_size = value; } }
-        public virtual Vector2 Real_Position
+        public Anchor Origin { get { return origin; } }
+        protected virtual Vector2 Real_Position
         {
             get
             {
                 if (parent != null)
-                    return parent.Real_Position + Formated_Position;
+                {
+                    Vector2 real_pos = TransformOriginToTopLeft();
+                    switch (anchor)
+                    {
+                        case Anchor.TOP_LEFT:
+                            real_pos.X = parent.Real_Position.X + real_pos.X;
+                            real_pos.Y = parent.Real_Position.Y + real_pos.Y;
+                            break;
+                        case Anchor.TOP_RIGHT:
+                            real_pos.X = parent.Real_Position.X + parent.Size.X + real_pos.X;
+                            real_pos.Y = parent.Real_Position.Y + real_pos.Y;
+                            break;
+                        case Anchor.BOTTOM_LEFT:
+                            real_pos.X = parent.Real_Position.X + real_pos.X;
+                            real_pos.Y = parent.Real_Position.Y + parent.Size.Y + real_pos.Y;
+                            break;
+                        case Anchor.BOTTOM_RIGHT:
+                            real_pos.X = parent.Real_Position.X + parent.Size.X + real_pos.X;
+                            real_pos.Y = parent.Real_Position.Y + parent.Size.Y + real_pos.Y;
+                            break;
+                        case Anchor.CENTER:
+                            real_pos.X = parent.Real_Position.X + parent.Size.X / 2 + real_pos.X;
+                            real_pos.Y = parent.Real_Position.Y + parent.Size.Y / 2 + real_pos.Y;
+                            break;
+                    }
+                    return real_pos;
+                }
                 else
-                    return Formated_Position;
+                    return position;
             }
         }
-        public virtual Vector2 Real_Size
+        protected virtual Vector2 Scale
         {
             get
             {
@@ -82,16 +107,34 @@ namespace Project_Citrus.Engine.Menus.Widgets
                 }
             }
         }
-        public virtual void Initialize()
-        {
-            this.WidgetFormat = new Format(10, 10);
-        }
 
-        public Boolean Reformat()
+        /*
+         * Convert coordinates to be relative to Top_Left
+         */
+        protected Vector2 TransformOriginToTopLeft()
         {
-            this.WidgetFormat.FormatWidget(this, this.parent);
-            formated = true;
-            return true;
+            Vector2 transformed = new Vector2(Position.X, Position.Y);
+            switch (origin)
+            {
+                case Anchor.TOP_LEFT:
+                    // Do nothing, already relative to top left
+                    break;
+                case Anchor.TOP_RIGHT:
+                    transformed.X = Position.X - Size.X;
+                    break;
+                case Anchor.BOTTOM_LEFT:
+                    transformed.Y = Position.Y - Size.Y;
+                    break;
+                case Anchor.BOTTOM_RIGHT:
+                    transformed.X = Position.X - Size.X;
+                    transformed.Y = Position.Y - Size.Y;
+                    break;
+                case Anchor.CENTER:
+                    transformed.X = Position.X - Size.X/2;
+                    transformed.Y = Position.Y - Size.Y/2;
+                    break;
+            }
+            return transformed;
         }
         public Boolean Add_Widget(Widget widget)
         {
@@ -99,17 +142,13 @@ namespace Project_Citrus.Engine.Menus.Widgets
                 return false;
             widgets.Add(widget);
             widget.parent = this;
-            widget.formated = false;
-            this.formated = false;
             return true;
         }
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            if (!formated)
-                Reformat();
             if (Image_Info != null)
             {
-                spriteBatch.Draw(Image_Info.Tex, Real_Position, null, Color.White, 0, Vector2.Zero, Real_Size, SpriteEffects.None, 0);
+                spriteBatch.Draw(Image_Info.Tex, Real_Position, null, Color.White, 0, Vector2.Zero, Scale, SpriteEffects.None, 0);
             }
             if (widgets != null)
                 foreach (Widget widget in widgets)

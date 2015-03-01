@@ -58,6 +58,7 @@
     <Compile Include="Engine\Menus\Formats\Format.cs" />
     <Compile Include="Engine\Menus\Layouts\VerticalLayout.cs" />
     <Compile Include="Engine\Menus\RenderInstructions\RenderInstruction.cs" />
+    <Compile Include="Engine\Menus\Widgets\Anchor.cs" />
     <Compile Include="Engine\Menus\Widgets\Button.cs" />
     <Compile Include="Engine\Menus\Menu.cs" />
     <Compile Include="Engine\Menus\Widgets\Label.cs" />

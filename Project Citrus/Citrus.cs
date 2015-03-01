@@ -47,7 +47,7 @@ namespace Project_Citrus
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here  
-            this.IsMouseVisible = true;   
+            this.IsMouseVisible = true;
             base.Initialize();
         }
 
@@ -75,10 +75,13 @@ namespace Project_Citrus
             //JSON_Loader.Write_Menu(new Menu("main_menu", false, true, true, new Button("play")));
             //main_menu = JSON_Loader.Get_Menu("main_menu");
             Vector2 screen_size = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
-            Panel pnl_buttons = new Panel("pnl_buttons",new Vector2(20,20),new Vector2(60,60));
-            Button btn_play = new Button("btn_play", "Play", new Vector2(0,0));
+
+            Panel pnl_buttons = new Panel("pnl_buttons", new Vector2(20, 20), new Vector2(100, 100), Anchor.TOP_LEFT);
+            Button btn_play = new Button("btn_play", "Play", new Vector2(10, 10), Anchor.TOP_LEFT, Anchor.TOP_LEFT);
             pnl_buttons.Add_Widget(btn_play);
+
             btn_play.Image_Name = "button_green";
+            pnl_buttons.Image_Name = "panel";
 
             main_menu = new Menu("main_menu", screen_size, false, true, true, pnl_buttons);
             menuManager.Add_Menu(main_menu);

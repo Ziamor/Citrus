@@ -10,12 +10,14 @@ namespace Project_Citrus.Engine.Menus.Widgets
 {
     public class Label : Widget
     {
-        private String Text;
+        private String text;
         private SpriteFont font;
-        public Label() : base() { this.Text = ""; }
-        public Label(String name, String text) : base(name) { this.Text = text; }
-        public Label(String name, String text, Widget parent) : base(name, parent) { this.Text = text; }
-        public Label(String name, String text, Vector2 position, Vector2 size) : base(name, position, size) { this.Text = text; }
+        public Label(String name, String text) : this(name, text, null, Vector2.Zero, new Vector2(0, 0), null) { }
+        public Label(String name, String text, Widget parent) : this(name, text, parent, Vector2.Zero, new Vector2(0, 0), null) { }
+        public Label(String name, String text, Widget parent, Vector2 position, Vector2 size, params Widget[] new_widgets)
+            : base(name, parent, position, size, Anchor.CENTER, Anchor.CENTER, new_widgets) { this.Text = text; }
+
+        public String Text { get { return text; } set { text = value; } }
         public SpriteFont Font
         {
             get
@@ -26,8 +28,20 @@ namespace Project_Citrus.Engine.Menus.Widgets
                 return font;
             }
         }
+
+        public override Vector2 Size
+        {
+            get
+            {
+                if (Font != null)
+                    return Font.MeasureString(text);
+                return new Vector2(1, 1);
+            }
+        }
+
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, GameTime gameTime)
         {
+            Vector2 vec = TransformOriginToTopLeft();
             spriteBatch.DrawString(Font, Text, Real_Position, Color.White);
         }
     }
